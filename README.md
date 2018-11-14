@@ -23,8 +23,12 @@ echo "# dev-commander\nsource ~/.dev-commander/main.sh" >> ~/.zshrc
 
 ## Use
 
+Commands try to be as simple and short as possible, but we may add the `-dc`
+suffix to some of them if mean people already reserved the keyword (for exemple `test` ).
+
 - `dev` Run the development server or the app binary
 - `install` Install dependencies
+- `build` Build or compile project
 - `db:migrate` Migrate database
 
 ## Configure

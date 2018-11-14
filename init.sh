@@ -9,4 +9,5 @@ SCRIPT_PATH="$(dirname $0)/main.sh"
 
 alias dev="${SCRIPT_PATH} dev"
 alias install="${SCRIPT_PATH} install"
+alias build="${SCRIPT_PATH} build"
 alias db:migrate="${SCRIPT_PATH} db:migrate"
