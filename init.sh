@@ -12,3 +12,6 @@ alias dev="${SCRIPT_PATH} dev"
 alias install="${SCRIPT_PATH} install"
 alias build="${SCRIPT_PATH} build"
 alias db:migrate="${SCRIPT_PATH} db:migrate"
+
+alias commit="${SCRIPT_PATH} commit"
+alias amend="${SCRIPT_PATH} amend"

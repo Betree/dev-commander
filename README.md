@@ -27,13 +27,20 @@ source ~/.dev-commander/init_without_aliases.sh
 
 ## Use
 
-Commands try to be as simple and short as possible, but we may add the `-dc`
-suffix to some of them if mean people already reserved the keyword (for exemple `test` ).
+If you have disabled short aliases, you can use these commands with `dcd`, like
+in `dcd dev` or `dcd install`.
+
+### Project-specifics commands
 
 - `dev` Run the development server or the app binary
 - `install` Install dependencies
 - `build` Build or compile project
 - `db:migrate` Migrate database
+
+### Git shortcuts
+
+- `commit` Make a git commit
+- `amend` Amend your previous commit
 
 ## Configuration
 
