@@ -1,6 +1,8 @@
 # 🦍 D3v c0mm4nd3r
 
-Always use the same language-agnostic commands to develop accross your projects.
+Stop confusing your commands and using `npm run` in your Elixir projects.
+Always use the same language-agnostic commands to run your developement commands.
+
 This script will auto-detect your project type based on files presence (`package.json`
 for npm, `mix.exs` for Elixir...).
 
@@ -12,13 +14,15 @@ Currently supported project types:
 ## Install
 
 ```bash
+# Clone the project to your home folder
 git clone https://github.com/Betree/dev-commander.git ~/.dev-commander
 
-# If using bash
-echo "# dev-commander\nsource ~/.dev-commander/main.sh" >> ~/.bashrc
+# At this to your `~/.bashrc`, `~/.zshrc` or wherether your shell config is
+source ~/.dev-commander/init.sh
 
-# If using zsh
-echo "# dev-commander\nsource ~/.dev-commander/main.sh" >> ~/.zshrc
+# If you're a weak person and want to disable short aliases to only use
+# commander with the `dcd` command, you can use this instead
+source ~/.dev-commander/init_without_aliases.sh
 ```
 
 ## Use
@@ -31,6 +35,6 @@ suffix to some of them if mean people already reserved the keyword (for exemple 
 - `build` Build or compile project
 - `db:migrate` Migrate database
 
-## Configure
+## Configuration
 
-[TODO]
+Not yet.
