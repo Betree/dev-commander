@@ -15,3 +15,6 @@ alias db:migrate="${SCRIPT_PATH} db:migrate"
 
 alias commit="${SCRIPT_PATH} commit"
 alias amend="${SCRIPT_PATH} amend"
+alias push="${SCRIPT_PATH} push"
+alias add="${SCRIPT_PATH} add"
+alias status="${SCRIPT_PATH} status"

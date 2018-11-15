@@ -40,6 +40,9 @@ function runGitCommand!()
 
 if [ "$1" == "commit" ]; then runGitCommand! commit "${@:2}"
 elif [ "$1" == "amend" ]; then runGitCommand! commit --amend "${@:2}"
+elif [ "$1" == "push" ]; then runGitCommand! push "${@:2}"
+elif [ "$1" == "add" ]; then runGitCommand! add "${@:2}"
+elif [ "$1" == "status" ]; then runGitCommand! status
 fi
 
 # ---- Project-specific commands ----
