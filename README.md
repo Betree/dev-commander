@@ -35,7 +35,7 @@ in `dcd dev` or `dcd install`.
 - `dev` Run the development server or the app binary
 - `install` Install dependencies
 - `build` Build or compile project
-- `db:migrate` Migrate database
+- `dbmigrate` Migrate database
 
 ### Git shortcuts
 
@@ -44,4 +44,4 @@ in `dcd dev` or `dcd install`.
 
 ## Configuration
 
-Not yet.
+Not yet. Maybe never.

@@ -11,9 +11,14 @@ if [ "$#" -lt 1 ]; then
   echo " > dcd dev"
   echo " > dcd install"
   echo " > dcd build"
-  echo " > dcd db:migrate"
+  echo " > dcd dbmigrate"
   echo " > dcd commit"
   echo " > dcd amend"
+  echo " > dcd push"
+  echo " > dcd add"
+  echo " > dcd status"
+  echo " > dcd frontend"
+  echo " > dcd backend"
   exit 1
 fi
 
@@ -26,20 +31,29 @@ function commandNotFound!()
   exit 1
 }
 
+function run!()
+{
+  "$@"
+  exit $?
+}
+
 function runGitCommand!()
 {
   if [ -z ".git" ]; then
     echo "Command ${1} can only be run in a git repository."
     exit 1
   fi
-  git $@
-  exit $?
+  run! git "$@"
 }
+
+# ---- 🦍 ----
+
+if [ "$1" == "🦍" ]; then run! echo "🦍 Different projects, same commands. 🦍"; fi
 
 # ---- Git commands are not project-specific ----
 
 if [ "$1" == "commit" ]; then runGitCommand! commit "${@:2}"
-elif [ "$1" == "amend" ]; then runGitCommand! commit --amend "${@:2}"
+elif [ "$1" == "amend" ]; then runGitCommand! commit --amend
 elif [ "$1" == "push" ]; then runGitCommand! push "${@:2}"
 elif [ "$1" == "add" ]; then runGitCommand! add "${@:2}"
 elif [ "$1" == "status" ]; then runGitCommand! status
@@ -49,16 +63,16 @@ fi
 
 if [ -f "package.json" ]; then
   if   [ "$1" == dev ]; then npm run dev
-  elif [ "$1" == install ]; then npm install
+  elif [ "$1" == install ]; then npm install "${@:2}"
   elif [ "$1" == build ]; then npm run build
-  elif [ "$1" == db:migrate ]; then npm run db:migrate
+  elif [ "$1" == dbmigrate ]; then npm run db:migrate
   else commandNotFound!
   fi
 elif [ -f "mix.exs" ]; then
   if   [ "$1" == dev ]; then iex -S mix
   elif [ "$1" == install ]; then mix deps.get
   elif [ "$1" == build ]; then mix compile
-  elif [ "$1" == db:migrate ]; then mix ecto.migrate
+  elif [ "$1" == dbmigrate ]; then mix ecto.migrate
   else commandNotFound!
   fi
 else
