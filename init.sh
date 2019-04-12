@@ -18,8 +18,13 @@ function registerAlias()
 registerAlias commit
 registerAlias amend
 registerAlias push
+registerAlias first-push
 registerAlias add
 registerAlias status
+registerAlias stash
+registerAlias pop
+registerAlias pull
+registerAlias pull-master
 
 # Project-specific
 registerAlias dev
