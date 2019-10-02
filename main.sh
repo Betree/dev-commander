@@ -58,8 +58,9 @@ if [ "$1" == "🦍" ]; then run! echo "🦍 Different projects, same commands. �
 # ---- Git commands are not project-specific ----
 
 if [ "$1" == "commit" ]; then runGitCommand! commit "${@:2}"
+elif [ "$1" == "checkout" ]; then runGitCommand! checkout "${@:2}"
 elif [ "$1" == "amend" ]; then runGitCommand! commit --amend
-elif [ "$1" == "first-push" ]; then runGitCommand! git push -u origin HEAD "${@:2}"
+elif [ "$1" == "first-push" ]; then runGitCommand! push -u origin HEAD "${@:2}"
 elif [ "$1" == "push" ]; then runGitCommand! push "${@:2}"
 elif [ "$1" == "add" ]; then runGitCommand! add "${@:2}"
 elif [ "$1" == "status" ]; then runGitCommand! status
@@ -68,9 +69,11 @@ elif [ "$1" == "pop" ]; then runGitCommand! pop
 elif [ "$1" == "pull" ]; then runGitCommand! pull
 elif [ "$1" == "pull-master" ]; then 
   exitIfNotGit
-  git stash
-  git checkout master
-  git pull
+  git stash && git checkout master && git pull
+  exit $?
+elif [ "$1" == "move-to-branch" ]; then 
+  exitIfNotGit
+  git stash && git checkout master && git pull && git checkout -b $2 && git stash pop
   exit $?
 fi
 

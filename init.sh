@@ -15,6 +15,7 @@ function registerAlias()
 }
 
 # Git
+registerAlias checkout
 registerAlias commit
 registerAlias amend
 registerAlias push
@@ -25,6 +26,7 @@ registerAlias stash
 registerAlias pop
 registerAlias pull
 registerAlias pull-master
+registerAlias move-to-branch
 
 # Project-specific
 registerAlias dev
