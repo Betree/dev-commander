@@ -62,6 +62,7 @@ elif [ "$1" == "checkout" ]; then runGitCommand! checkout "${@:2}"
 elif [ "$1" == "amend" ]; then runGitCommand! commit --amend
 elif [ "$1" == "first-push" ]; then runGitCommand! push -u origin HEAD "${@:2}"
 elif [ "$1" == "push" ]; then runGitCommand! push "${@:2}"
+elif [ "$1" == "pushf" ]; then runGitCommand! push --force-with-lease "${@:2}"
 elif [ "$1" == "add" ]; then runGitCommand! add "${@:2}"
 elif [ "$1" == "status" ]; then runGitCommand! status
 elif [ "$1" == "stash" ]; then runGitCommand! stash

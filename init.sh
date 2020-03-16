@@ -19,6 +19,7 @@ registerAlias checkout
 registerAlias commit
 registerAlias amend
 registerAlias push
+registerAlias pushf
 registerAlias first-push
 registerAlias add
 registerAlias status
