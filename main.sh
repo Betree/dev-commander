@@ -8,6 +8,7 @@ if [ "$#" -lt 1 ]; then
   echo "| 🦍 [D3v c0mm4nd3r] Usage  |"
   echo "+---------------------------+"
   echo ""
+  echo " > dcd apf (amend push force)"
   echo " > dcd dev"
   echo " > dcd install"
   echo " > dcd build"
@@ -62,15 +63,25 @@ function exitIfMainBranch() {
   fi
 }
 
-function runGitCommand!() {
+function runGitCommand() {
   exitIfNotGit $1
-  run! git "$@"
+  git "$@"
+}
+
+function runGitCommand!() {
+  runGitCommand "$@"
+  exit $?
+}
+
+function runGitCommandUnlessMain() {
+  exitIfNotGit $1
+  exitIfMainBranch $1
+  git "$@"
 }
 
 function runGitCommandUnlessMain!() {
-  exitIfNotGit $1
-  exitIfMainBranch $1
-  run! git "$@"
+  runGitCommandUnlessMain "$@"
+  exit $?
 }
 
 function getMainBranch() {
@@ -83,13 +94,16 @@ if [ "$1" == "🦍" ]; then run! echo "🦍 Different projects, same commands. �
 
 # ---- Git commands are not project-specific ----
 
-if [ "$1" == "commit" ]; then
+if [ "$1" == "apf" ]; then
+  runGitCommandUnlessMain status && runGitCommandUnlessMain commit --amend --no-edit && runGitCommandUnlessMain push --force-with-lease
+  exit $?
+elif [ "$1" == "commit" ]; then
   runGitCommandUnlessMain! commit "${@:2}"
 elif [ "$1" == "checkout" ]; then
   runGitCommand! checkout "${@:2}"
 elif [ "$1" == "amend" ]; then
   runGitCommandUnlessMain! commit --amend
-elif [ "$1" == "first-push" ]; then
+elif [ "$1" == "first-push" ] || [ "$1" == "fp" ]; then
   runGitCommandUnlessMain! push -u origin HEAD "${@:2}"
 elif [ "$1" == "push" ]; then
   runGitCommandUnlessMain! push "${@:2}"
@@ -106,20 +120,21 @@ elif [ "$1" == "pop" ]; then
 elif [ "$1" == "reset-soft" ]; then
   runGitCommandUnlessMain! reset --soft HEAD~1
 elif [ "$1" == "reset-to-remote-hard" ]; then
-  runGitCommandUnlessMain! fetch && runGitCommandUnlessMain! reset --hard @{u}
+  runGitCommandUnlessMain fetch && runGitCommandUnlessMain reset --hard @{u}
+  exit $?
 elif [ "$1" == "pull" ]; then
   runGitCommand! pull
 elif [ "$1" == "pull-main" ]; then
   exitIfNotGit
-  git stash && git checkout "$(getMainBranch)" && git pull
+  runGitCommand stash && runGitCommand checkout "$(getMainBranch)" && runGitCommand pull
   exit $?
 elif [ "$1" == "pull-staging" ]; then
   exitIfNotGit
-  git stash && git checkout staging && git pull
+  runGitCommand stash && runGitCommand checkout staging && runGitCommand pull
   exit $?
 elif [ "$1" == "deploy-staging" ]; then
   exitIfNotGit
-  git stash && git checkout "$(getMainBranch)" && git pull && npm run deploy:staging
+  runGitCommand stash && runGitCommand checkout "$(getMainBranch)" && runGitCommand pull && npm run deploy:staging
   exit $?
 elif [ "$1" == "deploy-production" ]; then
   exitIfNotGit
@@ -127,11 +142,11 @@ elif [ "$1" == "deploy-production" ]; then
   exit $?
 elif [ "$1" == "move-to-branch" ]; then
   exitIfNotGit
-  git stash && git checkout "$(getMainBranch)" && git pull && git checkout -b $2 && git stash pop
+  runGitCommand stash && runGitCommand checkout "$(getMainBranch)" && runGitCommand pull && runGitCommand checkout -b $2 && runGitCommand stash pop
   exit $?
 elif [ "$1" == "rebase-on-main" ]; then
   exitIfNotGit
-  pull-main && git checkout $2 && git stash pop && git rebase main
+  pull-main && runGitCommand checkout $2 && runGitCommand stash pop && runGitCommand rebase main
   exit $?
 fi
 

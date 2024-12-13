@@ -14,12 +14,14 @@ function registerAlias() {
 }
 
 # Git
+registerAlias apf
 registerAlias checkout
 registerAlias commit
 registerAlias amend
 registerAlias push
 registerAlias pushf
 registerAlias first-push
+registerAlias fp
 registerAlias add
 registerAlias status
 registerAlias stash
